@@ -65,7 +65,7 @@ Go to `Frontend/src/data/services.json` and add the following code:
   "Server": "Server Purpose",
   "Name": "Server Name",
   "Link": "Server Link",
-  "Status": "Online";
+  "Status": "Online"
 }
 ```
 
