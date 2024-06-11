@@ -1,0 +1,17 @@
+/* Media Queries */
+@media screen and (max-width: 1000px) {
+  .server-container {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    grid-gap: 7px;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .digital-clock {
+    display: none;
+  }
+
+  .system-container > .server {
+    white-space: wrap;
+  }
+}

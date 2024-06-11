@@ -1,0 +1,23 @@
+.dot {
+  height: 10px;
+  width: 10px;
+  background-color: #efb700;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.online {
+  background-color: #2eb35a;
+}
+
+.online-text {
+  color: #2eb35a;
+}
+
+.offline {
+  background-color: #b81d13;
+}
+
+.offline-text {
+  color: #b81d13;
+}

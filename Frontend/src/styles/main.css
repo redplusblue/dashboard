@@ -1,0 +1,81 @@
+html,
+body {
+  width: 100%;
+  height: 100%;
+}
+
+@font-face {
+  font-family: "Lato";
+  src: url("../assets/fonts/Lato-Regular.ttf");
+}
+
+body {
+  font-family: "Lato", sans-serif;
+  line-height: 1.6;
+  background-color: #15202e;
+  margin: 0;
+  padding: 0;
+  color: white;
+  background-image: url("../assets/bg/bg.svg");
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+h2 {
+  font-size: 2rem;
+  font-weight: bold;
+  font-family: "Lato", sans-serif;
+  color: rgba(230, 245, 255, 0.75);
+  text-align: center;
+}
+
+.header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+}
+
+.time {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Clocks, digital and binary */
+.digital-clock {
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.binary-clock {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.dashboard-clock-binary td {
+  height: 0.4rem;
+  width: 0.4rem;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.dashboard-clock-binary .num1 {
+  background-color: #2eb35a;
+}
+
+.header > .logo {
+  font-family: "Lato", sans-serif;
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+h4 {
+  font-size: 1rem;
+  font-weight: bold;
+  font-family: "Lato", sans-serif;
+  color: rgba(230, 245, 255, 0.75);
+  text-align: center;
+}

@@ -1,0 +1,50 @@
+[
+  {
+    "Server": "Media Server",
+    "Name": "JellyFin",
+    "Link": "LINK",
+    "Status": "Online"
+  },
+  {
+    "Server": "Photo Server",
+    "Name": "Immich",
+    "Link": "LINK",
+    "Status": "Online"
+  },
+  {
+    "Server": "Notes Server",
+    "Name": "Memos",
+    "Link": "LINK",
+    "Status": "Online"
+  },
+  {
+    "Server": "Minecraft Server",
+    "Name": "Minecraft",
+    "Link": "/minecraft",
+    "Status": "Online"
+  },
+  {
+    "Server": "Finance Server",
+    "Name": "FireFly3",
+    "Link": "LINK",
+    "Status": "Online"
+  },
+  {
+    "Server": "AI Assistant",
+    "Name": "ChatLLM",
+    "Link": "LINK",
+    "Status": "Online"
+  },
+  {
+    "Server": "System Monitoring",
+    "Name": "Glances",
+    "Link": "LINK",
+    "Status": "Online"
+  },
+  {
+    "Server": "Text To Speech",
+    "Name": "TTS",
+    "Link": "LINK",
+    "Status": "Online"
+  }
+]
