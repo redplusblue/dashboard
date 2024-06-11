@@ -32,6 +32,16 @@ except Exception as e:
     print("Error installing Minecraft packages: ")
     print(e)
     exit(1)
+    
+# Install the necessary backend packages: 
+packages = ["express", "child_process", "fs", "systeminformation"]
+try:
+    for package in packages:
+        os.system("npm install " + package)
+except Exception as e:
+    print("Error installing backend packages: ")
+    print(e)
+    exit(1) 
 
 # Move the backend files to the correct location
 try:
