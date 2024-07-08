@@ -88,21 +88,50 @@ app.get("/api/server-status", async (req, res) => {
 // System API
 app.get("/api/system", async (req, res) => {
   try {
+    const memData = await si.mem();
+    const actuallyUsed =
+      memData.total - memData.free - memData.buffers - memData.cached;
+
     const systemData = {
-      serverName: "Some Server Name",
+      serverName: "HomeServer",
       os: await si.osInfo(),
-      cpuUsage: await si.currentLoad().then((data) => data.currentload),
-      memoryUsage: await si
-        .mem()
-        .then((data) => ((data.used / data.total) * 100).toFixed(2)),
-      diskUsage: await si
-        .fsSize()
-        .then((data) => ((data[0].used / data[0].size) * 100).toFixed(2)),
-      uptime: si.time().uptime,
-      totalProcesses: await si.processes().then((data) => data.all.length),
-      system: await si.system(),
       cpu: await si.cpu(),
-      networkConnections: await si.networkConnections(),
+      cpuUsage: await si.currentLoad().then((data) => ({
+        currentLoad: data.currentLoad.toFixed(2),
+        coreLoads: data.cpus.map((cpu) => cpu.load.toFixed(2)),
+      })),
+      memory: {
+        total: (memData.total / 1024 / 1024 / 1024).toFixed(2),
+        used: (actuallyUsed / 1024 / 1024 / 1024).toFixed(2),
+        usagePercentage: ((actuallyUsed / memData.total) * 100).toFixed(2),
+        cached: (memData.cached / 1024 / 1024 / 1024).toFixed(2),
+        buffers: (memData.buffers / 1024 / 1024 / 1024).toFixed(2),
+      },
+      disk: await si.fsSize().then((data) =>
+        data.map((disk) => ({
+          fs: disk.fs,
+          type: disk.type,
+          size: (disk.size / 1024 / 1024 / 1024).toFixed(2),
+          used: (disk.used / 1024 / 1024 / 1024).toFixed(2),
+          usagePercentage: ((disk.used / disk.size) * 100).toFixed(2),
+        }))
+      ),
+      uptime: si.time().uptime,
+      processes: await si.processes().then((data) => ({
+        all: data.all,
+        running: data.running,
+        blocked: data.blocked,
+        sleeping: data.sleeping,
+      })),
+      network: await si.networkStats().then((data) =>
+        data.map((iface) => ({
+          iface: iface.iface,
+          rxBytes: (iface.rx_bytes / 1024 / 1024).toFixed(2),
+          txBytes: (iface.tx_bytes / 1024 / 1024).toFixed(2),
+        }))
+      ),
+      temperatures: await si.cpuTemperature(),
+      services: await si.services("*"),
     };
     res.json(systemData);
   } catch (error) {

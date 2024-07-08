@@ -1,126 +1,142 @@
 const fs = require("fs").promises;
 const http = require("http");
+const https = require("https");
 
-const PATH_TO_SERVER_INFO = "./Dashboard/src/data/serverInfo.json";
-// Change if Minecraft server is running on a different port
-const MINECRAFT_PORT = 25565;
+// Links to bypass SSL verification for
+const bypassSSLFor = [];
 
 async function checkServerStatus() {
   try {
-    // Asynchronously read file
-    let serverInfo = await fs.readFile(PATH_TO_SERVER_INFO, "utf8");
+    let serverInfo = await fs.readFile(
+      "/path/to/src/data/serverInfo.json",
+      "utf8"
+    );
     serverInfo = JSON.parse(serverInfo);
-
-    // Timeout duration in milliseconds
     const timeoutDuration = 5000; // 5 seconds
 
-    // Array to hold promises of server status checks
-    const statusPromises = serverInfo.map((server) => {
-      // Special Case: Minecraft Server
+    const serverStatus = [];
+    for (const server of serverInfo) {
+      const shouldBypassSSL = bypassSSLFor.includes(server.Link);
+      // console.log(`Checking ${server.Name}, Bypass SSL: ${shouldBypassSSL}`);
+
       if (server.Server === "Minecraft Server") {
-        return checkMinecraftServerStatus();
-      }
-      return new Promise((resolve) => {
-        // Create a new request
-        const request = http.request(
-          server.Link,
-          { method: "HEAD" },
-          (response) => {
-            // If the request was successful, resolve with 1
-            if (response.statusCode === 200) {
-              resolve(1);
-            } else {
-              // If the request was not successful, resolve with 0
-              resolve(0);
-            }
-            // Close the connection after receiving a response
-            request.end();
-          }
+        serverStatus.push(await checkMinecraftServerStatus());
+      } else {
+        serverStatus.push(
+          await checkWebServerStatus(
+            server.Link,
+            timeoutDuration,
+            0,
+            shouldBypassSSL
+          )
         );
-
-        // Handle errors during the request
-        request.on("error", () => {
-          // Reject the promise with -1
-          resolve(0);
-          // Close the connection in case of error
-          request.end();
-        });
-
-        // Set a timeout for the request
-        request.setTimeout(timeoutDuration, () => {
-          // Resolve with -1 if the request times out
-          resolve(0);
-          // Abort the request to close the connection
-          request.abort();
-        });
-
-        // End the request
-        request.end();
-      });
-    });
-
-    // Await all promises
-    const serverStatus = await Promise.all(statusPromises);
+      }
+    }
     return serverStatus;
   } catch (error) {
     console.error("Error:", error);
-    // Return an empty array if there's an error
     return [];
   }
 }
 
 async function checkMinecraftServerStatus() {
   try {
-    // Timeout duration in milliseconds
     const timeoutDuration = 5000; // 5 seconds
 
-    // Create a new request
-    const request = http.request(`http://localhost:${MINECRAFT_PORT}`, {
-      method: "HEAD",
-    });
-
-    // Return a promise to handle the server status
     return new Promise((resolve) => {
-      // Set a timeout for the request
-      request.setTimeout(timeoutDuration, () => {
-        // Resolve with -1 if the request times out
-        // resolve(-1);
-        // Abort the request to close the connection
-        request.abort();
+      const request = http.request("http://localhost:25565", {
+        method: "HEAD",
       });
 
-      // Handle response from the server
+      request.setTimeout(timeoutDuration, () => {
+        request.abort();
+        resolve(0);
+      });
+
       request.on("response", (response) => {
         if (response.statusCode === 200) {
-          // If the request was successful, resolve with 1
           resolve(1);
         } else if (response.statusCode === 52) {
-          // If the server is active but returns an empty reply, resolve with 0
           resolve(0);
         }
-        // Close the connection after receiving a response
         request.end();
       });
 
-      // Handle errors during the request
       request.on("error", (error) => {
         if (error.code === "ECONNRESET") {
-          // If the connection was reset by the server, resolve with 1
           resolve(1);
         } else if (error.code === "ECONNREFUSED") {
-          // If the connection was refused, resolve with 0
           resolve(0);
         } else {
-          // For other errors, reject the promise with -1
           console.error("Error:", error);
+          resolve(0);
         }
-        // Close the connection in case of error
         request.end();
       });
+
+      request.end();
     });
   } catch (error) {
     console.error("Error:", error);
+    return 0;
   }
 }
+
+async function checkWebServerStatus(
+  url,
+  timeout,
+  redirectCount = 0,
+  bypassSSL = false
+) {
+  return new Promise((resolve) => {
+    if (!url || !url.startsWith("http") || redirectCount > 5) {
+      console.error("Invalid URL or too many redirects:", url);
+      resolve(0);
+      return;
+    }
+
+    // console.log(`Checking ${url}, Bypass SSL: ${bypassSSL}`);
+    const protocol = url.startsWith("https") ? https : http;
+
+    const options = {
+      timeout: timeout,
+      rejectUnauthorized: !bypassSSL, // Note the ! here
+    };
+
+    const request = protocol.get(url, options, (response) => {
+      if (
+        response.statusCode >= 300 &&
+        response.statusCode < 400 &&
+        response.headers.location
+      ) {
+        const redirectUrl = new URL(response.headers.location, url).href;
+        checkWebServerStatus(
+          redirectUrl,
+          timeout,
+          redirectCount + 1,
+          bypassSSL
+        ).then(resolve);
+      } else {
+        resolve(response.statusCode === 200 ? 1 : 0);
+      }
+    });
+
+    request.on("error", (error) => {
+      console.error("Error at", url, ":", error.message);
+      resolve(0);
+    });
+
+    request.on("timeout", () => {
+      console.log("Timeout at", url);
+      request.abort();
+      resolve(0);
+    });
+  });
+}
+
+// Test serverStatus
+// checkServerStatus().then((serverStatus) => {
+//   console.log(serverStatus);
+// });
 
 module.exports = { checkServerStatus, checkMinecraftServerStatus };
