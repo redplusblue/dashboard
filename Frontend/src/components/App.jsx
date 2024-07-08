@@ -16,7 +16,6 @@ const App = ({ statuses }) => {
 
   return (
     <>
-      <h2>Server Status</h2>
       <div className="server-container">
         {serverStatuses.map((server, index) => (
           <div

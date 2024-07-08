@@ -1,11 +1,45 @@
 import { useState, useEffect } from "react";
 import App from "./App.jsx";
-import Dashboard from "./Dashboard.jsx";
+import Header from "./Header.jsx";
 import "../styles/media.css";
+
+const initialSystemData = {
+  serverName: "HomeServer",
+  os: {
+    distro: "LinuxMint",
+    release: "21.3",
+    kernel: "5.15.0-112-generic",
+    arch: "x64",
+  },
+  uptime: 42069,
+  cpuUsage: {
+    currentLoad: 40,
+  },
+  temperatures: {
+    main: 99,
+  },
+  memory: {
+    usagePercentage: 60,
+  },
+  disk: [
+    {
+      usagePercentage: 90,
+    },
+  ],
+  processes: {
+    all: 1000,
+    running: 69,
+  },
+  services: [
+    {
+      running: false,
+    },
+  ],
+};
 
 const MainApp = () => {
   const [statuses, setStatuses] = useState([-1, -1, -1, -1, -1]);
-  const [systemData, setSystemData] = useState(null);
+  const [systemData, setSystemData] = useState(initialSystemData);
 
   useEffect(() => {
     // Function to fetch server statuses from the server
@@ -50,8 +84,8 @@ const MainApp = () => {
 
   return (
     <>
+      <Header systemData={systemData} />
       <App statuses={statuses} />
-      <Dashboard systemData={systemData}></Dashboard>
     </>
   );
 };

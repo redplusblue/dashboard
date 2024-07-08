@@ -4,6 +4,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  gap: 50px;
 }
 
 .server-container {
@@ -12,22 +13,31 @@
   grid-template-columns: repeat(4, minmax(250px, 1fr));
   justify-items: center;
   gap: 50px 0px;
+  margin-bottom: 100px;
 }
 
-.server {
+.server,
+.server-sys {
   width: max-content;
   display: flex;
   flex-direction: row;
   align-items: center;
   gap: 10px;
   padding: 10px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 4px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: var(--border-r);
   white-space: nowrap;
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: rgba(0, 0, 0, var(--bg-a));
+  backdrop-filter: blur(var(--blur-px));
   font-size: 14px;
   cursor: default;
-  transition: all 0.2s;
+  transition: all 0.3s;
+  /*Force GPU rendering to stop backdrop flicker*/
+  transform: translate3d(0, 0, 0);
+}
+
+.server:hover {
+  transform: translate3d(0, -5px, 0) scale(1.05);
 }
 
 .server.up {
@@ -35,19 +45,19 @@
 }
 
 .server.up:hover {
-  background-color: rgba(255, 255, 255, 0.15);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  background-color: rgba(0, 0, 0, calc(var(--bg-a) + 0.1));
+  border: 1px solid rgba(0, 0, 0, 0.2);
 }
 
 .server.down {
-  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, var(--bg-a));
   border-color: #b81d13;
   -webkit-animation: alertblink 10s ease-in-out infinite;
   animation: alertblink 10s ease-in-out infinite;
 }
 
 .server.down:hover {
-  background-color: rgba(210, 44, 50, 0.2);
+  background-color: rgba(210, 44, 50, var(--bg-a));
   -webkit-animation: none;
   animation: none;
 }
@@ -91,10 +101,10 @@ a:hover {
 
 @-webkit-keyframes alertblink {
   0% {
-    background: rgba(210, 44, 50, 0);
+    background: rgba(210, 44, 50, var(--bg-a));
   }
   50% {
-    background: rgba(210, 44, 50, 0.2);
+    background: rgba(210, 44, 50, calc(var(--bg-a) + 0.2));
   }
   100% {
     background: rgba(210, 44, 50, 0);
@@ -103,12 +113,12 @@ a:hover {
 
 @keyframes alertblink {
   0% {
-    background: rgba(210, 44, 50, 0);
+    background: rgba(210, 44, 50, var(--bg-a));
   }
   50% {
-    background: rgba(210, 44, 50, 0.2);
+    background: rgba(210, 44, 50, calc(var(--bg-a) + 0.2));
   }
   100% {
-    background: rgba(210, 44, 50, 0);
+    background: rgba(210, 44, 50, var(--bg-a));
   }
 }

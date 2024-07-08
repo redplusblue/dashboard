@@ -1,11 +1,24 @@
 import PropTypes from "prop-types";
 import "../styles/ProgressBar.css";
 
-const ProgressBar = ({ percentage }) => {
+const ProgressBar = ({ percentage, temp }) => {
+  const classToAdd = () => {
+    if (percentage < 50) {
+      return "safe";
+    } else if (percentage < 80) {
+      return "warning";
+    } else {
+      return "critical";
+    }
+  };
+
   return (
     <div className="progress-bar">
-      <div className="progress" style={{ width: `${percentage}%` }}>
-        {percentage} %
+      <div
+        className={`progress ${classToAdd()}`}
+        style={{ width: `${percentage}%` }}
+      >
+        {percentage} % {temp && <span className="temp">& {temp} °C</span>}
       </div>
     </div>
   );

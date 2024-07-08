@@ -6,12 +6,35 @@
   }
 }
 
-@media screen and (max-width: 500px) {
-  .digital-clock {
-    display: none;
+@media screen and (max-width: 650px) {
+  .header {
+    display: flex;
+    flex-direction: column !important;
+    gap: 10px !important;
   }
+  #root {
+    gap: 10px;
+  }
+}
 
-  .system-container > .server {
-    white-space: wrap;
+@media screen and (max-width: 300px) {
+  .logo {
+    font-size: 1.5rem !important;
+  }
+  .logo-subtitle {
+    font-size: 0.8rem !important;
+  }
+  .digital-clock {
+    font-size: 1.5rem !important;
+  }
+  .dashboard-clock-binary td {
+    height: 0.3rem !important;
+    width: 0.3rem !important;
+  }
+  .server-sys {
+    font-size: 0.8rem !important;
+  }
+  .server > img {
+    display: none;
   }
 }

@@ -24,74 +24,11 @@
     <link rel="manifest" href="../Assets/favicon/site.webmanifest" />
   </head>
   <body>
-    <div class="header">
-      <div class="logo">HomeServer</div>
-      <div class="time">
-        <div class="digital-clock"></div>
-        <div class="binary-clock">
-          <table class="dashboard-clock-binary">
-            <tr class="hours">
-              <td class="num0"></td>
-              <td class="num0"></td>
-              <td class="num0"></td>
-              <td class="num0"></td>
-              <td class="num0"></td>
-              <td class="num0"></td>
-            </tr>
-            <tr class="minutes">
-              <td class="num0"></td>
-              <td class="num0"></td>
-              <td class="num0"></td>
-              <td class="num0"></td>
-              <td class="num0"></td>
-              <td class="num0"></td>
-            </tr>
-            <tr class="seconds">
-              <td class="num0"></td>
-              <td class="num0"></td>
-              <td class="num0"></td>
-              <td class="num0"></td>
-              <td class="num0"></td>
-              <td class="num0"></td>
-            </tr>
-          </table>
-        </div>
-      </div>
-    </div>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
-    <script>
-      // Current time (HH:MM:SS) in digital format
-      setInterval(() => {
-        const date = new Date();
-        const hours = date.getHours().toString().padStart(2, "0");
-        const minutes = date.getMinutes().toString().padStart(2, "0");
-        const seconds = date.getSeconds().toString().padStart(2, "0");
-        const time = `${hours}:${minutes}:${seconds}`;
-        document.querySelector(".digital-clock").textContent = time;
-      }, 1000);
-
-      // Current time (HH:MM:SS) in binary format
-      // add class num1 and num0 to the td elements
-      setInterval(() => {
-        const date = new Date();
-        const hours = date.getHours();
-        const minutes = date.getMinutes();
-        const seconds = date.getSeconds();
-        const binaryHours = hours.toString(2).padStart(6, "0");
-        const binaryMinutes = minutes.toString(2).padStart(6, "0");
-        const binarySeconds = seconds.toString(2).padStart(6, "0");
-
-        const hoursElements = document.querySelector(".hours").children;
-        const minutesElements = document.querySelector(".minutes").children;
-        const secondsElements = document.querySelector(".seconds").children;
-
-        for (let i = 0; i < 6; i++) {
-          hoursElements[i].className = `num${binaryHours[i]}`;
-          minutesElements[i].className = `num${binaryMinutes[i]}`;
-          secondsElements[i].className = `num${binarySeconds[i]}`;
-        }
-      }, 1000);
-    </script>
   </body>
+  <script>
+    /*to prevent Firefox FOUC, this must be here*/
+    let FF_FOUC_FIX;
+  </script>
 </html>

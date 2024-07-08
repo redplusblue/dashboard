@@ -9,6 +9,17 @@ body {
   src: url("../assets/fonts/Lato-Regular.ttf");
 }
 
+@font-face {
+  font-family: "BV";
+  src: url("../assets/fonts/BaskervvilleSC-Regular.ttf");
+}
+
+:root {
+  --blur-px: 5px;
+  --bg-a: 0.3;
+  --border-r: 10px;
+}
+
 body {
   font-family: "Lato", sans-serif;
   line-height: 1.6;
@@ -16,9 +27,9 @@ body {
   margin: 0;
   padding: 0;
   color: white;
-  background-image: url("../assets/bg/bg.svg");
+  background-image: url("https://picsum.photos/1920/1080");
   background-size: cover;
-  background-repeat: no-repeat;
+  background-repeat: repeat;
 }
 
 h2 {
@@ -30,11 +41,17 @@ h2 {
 }
 
 .header {
+  margin: 10px;
+  width: fit-content;
+  gap: 15px;
+  padding: 10px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  padding: 10px;
+  background-color: rgba(0, 0, 0, var(--bg-a));
+  backdrop-filter: blur(var(--blur-px));
+  border-radius: var(--border-r);
 }
 
 .time {
@@ -46,7 +63,7 @@ h2 {
 
 /* Clocks, digital and binary */
 .digital-clock {
-  font-size: 2rem;
+  font-size: 2.2rem;
   font-weight: bold;
 }
 
@@ -56,8 +73,8 @@ h2 {
 }
 
 .dashboard-clock-binary td {
-  height: 0.4rem;
-  width: 0.4rem;
+  height: 0.5rem;
+  width: 0.5rem;
   border-radius: 50%;
   background-color: rgba(255, 255, 255, 0.2);
 }
@@ -66,10 +83,26 @@ h2 {
   background-color: #2eb35a;
 }
 
-.header > .logo {
-  font-family: "Lato", sans-serif;
-  font-size: 2rem;
+.logo-container {
+  font-family: "BV", serif;
+}
+
+.logo {
+  font-size: 3rem;
   font-weight: bold;
+}
+
+.logo-subtitle {
+  line-height: 1.4;
+  font-family: "Lato", sans-serif;
+  color: rgba(230, 245, 255, 0.5);
+}
+
+.right {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
 }
 
 h4 {

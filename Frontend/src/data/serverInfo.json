@@ -12,26 +12,20 @@
     "Status": "Online"
   },
   {
-    "Server": "Notes Server",
-    "Name": "Memos",
-    "Link": "LINK",
-    "Status": "Online"
-  },
-  {
     "Server": "Minecraft Server",
-    "Name": "Minecraft",
-    "Link": "/minecraft",
-    "Status": "Online"
-  },
-  {
-    "Server": "Finance Server",
-    "Name": "FireFly3",
+    "Name": "Blocky",
     "Link": "LINK",
     "Status": "Online"
   },
   {
-    "Server": "AI Assistant",
-    "Name": "ChatLLM",
+    "Server": "Bookstack - Knowledge Base",
+    "Name": "Books",
+    "Link": "LINK",
+    "Status": "Online"
+  },
+  {
+    "Server": "Uptime Monitoring",
+    "Name": "Uptime",
     "Link": "LINK",
     "Status": "Online"
   },
@@ -42,8 +36,38 @@
     "Status": "Online"
   },
   {
-    "Server": "Text To Speech",
-    "Name": "TTS",
+    "Server": "Reverse Proxy",
+    "Name": "NPM",
+    "Link": "LINK",
+    "Status": "Online"
+  },
+  {
+    "Server": "DNS Server (Pi Hole)",
+    "Name": "DNS",
+    "Link": "LINK",
+    "Status": "Online"
+  },
+  {
+    "Server": "AI Assistant",
+    "Name": "AI",
+    "Link": "LINK",
+    "Status": "Online"
+  },
+  {
+    "Server": "Documents Server (Paperless NGX)",
+    "Name": "Docs",
+    "Link": "LINK",
+    "Status": "Online"
+  },
+  {
+    "Server": "Docker Management",
+    "Name": "Yacht",
+    "Link": "LINK",
+    "Status": "Online"
+  },
+  {
+    "Server": "Syncthing (File Sync)",
+    "Name": "Syncy",
     "Link": "LINK",
     "Status": "Online"
   }
