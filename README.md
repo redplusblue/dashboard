@@ -2,7 +2,7 @@
 
 Dashboard page for my HomeServer.
 
-### Preview: [Try it out](https://redplusplus.github.io/dashboard/)
+### Preview: [Try it out](https://redplusblue.github.io/dashboard/)
 
 #### Dashboard
 
