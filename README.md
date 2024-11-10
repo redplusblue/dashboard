@@ -20,71 +20,55 @@ Dashboard page for my HomeServer.
 
 ### How to use - Easy Version
 
-#### Docker (Coming soon)
+#### Docker Compose: (Recommended)
 
-#### Python Script:
+1. Create a new directory and create a `docker-compose.yml` file in it. Add the following code to the file:
 
-1. Clone the repository.
+```yaml
+services:
+  dashboard:
+    image: redplusblue/dashboard:latest
+    network_mode: "host"
+    volumes:
+      - ./serverInfo.json:/app/Frontend/src/data/serverInfo.json
+    environment:
+      - PORT=3020
+```
 
-2. Make sure you have [python](https://www.python.org/downloads/), [nodejs](https://nodejs.org/en/download/) and [npm](https://www.npmjs.com/get-npm) installed on your system.
+2. Create a `serverInfo.json` file in the same directory and add the following code:
+
+```json
+[
+  {
+      "Server": "Server Purpose",
+      "Name": "Server Name",
+      "Link": "Server Link",
+      "Status": "Online"
+  }, 
+  {
+      "Server": "Server Purpose",
+      "Name": "Server Name",
+      "Link": "Server Link",
+      "Status": "Online"
+  }
+]
+```
+You can add as many services as you want. Just copy the object inside the `services` array and paste it below the last object. Here is a [sample file](serverInfo.json).
 
 3. Run the following command in the terminal:
 
 ```bash
-python3 installer.py
+docker-compose up -d
 ```
 
-### How to use - Hard Version
+4. NOTE: If you are using a firewall, make sure to open the port `3020` for the dashboard. You can access the dashboard at `http://localhost:3020`. If you are using a different port, replace `3020` with the port you are using.   
 
-(Assuming you have nodejs and npm installed on your system)
+###### [How to use - Hard Version](install_hard.md)
 
-1. Clone the repository.
-2. Go to frontend folder and run `npm install` to install all the dependencies for the frontend.
-3. Go to backend folder and install express and the following libraries using `npm install`:
-   - `child_process` (To run shell commands)
-   - `express` (To create the server)
-   - `systeminformation` (To get the system information)
-   - `fs` (To read the files)
-4. Build the frontend using `npm run build` in the frontend folder. This will create a build folder in the frontend folder.
-5. Similarly run `npm install` and build the minecraft view using `npm run build` in the minecraft folder.
-6. Move all the files from the Backend folder to the root folder.
-7. Run the following command in the terminal:
-
-```bash
-node server.js
-```
-
-8. Open the browser and go to `localhost:3000` to see the dashboard.
-
-### How to add services
-
-Go to `Frontend/src/data/services.json` and add the following code:
-
-```json
-{
-  "Server": "Server Purpose",
-  "Name": "Server Name",
-  "Link": "Server Link",
-  "Status": "Online"
-}
-```
-
-To add images add them to the `Frontend/src/assets/icons` folder and make sure the Server's `name` matches the name of the file of the icon. Then go to `Frontend/src/scripts/icons.js` and add the following code:
-
-```javascript
-export { default as ServerName } from "../assets/icons/ServerName.svg";
-```
-
-### How to add minecraft servers
-
-- Frontend:
-  - Go to `Minecraft/script.js` and add the server name to the variable `servers`.
-
-Thats all you need to do (I think).
-
-![Shikamaru Nara what a drag gif](preview/reaction.jpg)
-
-I know, but it's a one-time thing.
+### Pitfalls (So far)
+1. Self signed certificates are not supported. The URL will show as Offline if you are using a self signed certificate.
+2. The serverInfo.json file should be in the same directory as the docker-compose.yml file. If you want to use a different location, you will have to change the volume mapping in the docker-compose.yml file.
+3. The number of icons is limited. If you want to add a new service, use this [tutorial](add_service.md).
 
 ### Credits
 

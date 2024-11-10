@@ -1,0 +1,74 @@
+[
+  {
+    "Server": "Media Server",
+    "Name": "JellyFin",
+    "Link": "http://localhost:8096",
+    "Status": "Online"
+  },
+  {
+    "Server": "Photo Server",
+    "Name": "Immich",
+    "Link": "http://localhost:3000",
+    "Status": "Online"
+  },
+  {
+    "Server": "Minecraft Server",
+    "Name": "Blocky",
+    "Link": "http://localhost:25565",
+    "Status": "Online"
+  },
+  {
+    "Server": "Bookstack - Knowledge Base",
+    "Name": "Books",
+    "Link": "http://localhost:6875",
+    "Status": "Online"
+  },
+  {
+    "Server": "Uptime Monitoring",
+    "Name": "Uptime",
+    "Link": "http://localhost:3001",
+    "Status": "Online"
+  },
+  {
+    "Server": "System Monitoring",
+    "Name": "Glances",
+    "Link": "http://localhost:61208",
+    "Status": "Online"
+  },
+  {
+    "Server": "Reverse Proxy",
+    "Name": "NPM",
+    "Link": "http://localhost:8080",
+    "Status": "Online"
+  },
+  {
+    "Server": "DNS Server (Pi Hole)",
+    "Name": "DNS",
+    "Link": "http://localhost:8081",
+    "Status": "Online"
+  },
+  {
+    "Server": "AI Assistant",
+    "Name": "AI",
+    "Link": "http://localhost:5000",
+    "Status": "Online"
+  },
+  {
+    "Server": "Documents Server (Paperless NGX)",
+    "Name": "Docs",
+    "Link": "http://localhost:8000",
+    "Status": "Online"
+  },
+  {
+    "Server": "Docker Management",
+    "Name": "Yacht",
+    "Link": "http://localhost:8001",
+    "Status": "Online"
+  },
+  {
+    "Server": "Syncthing (File Sync)",
+    "Name": "Syncy",
+    "Link": "http://localhost:8384",
+    "Status": "Online"
+  }
+]

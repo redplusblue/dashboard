@@ -1,0 +1,8 @@
+services:
+  dashboard:
+    image: redplusblue/dashboard:latest
+    network_mode: "host"
+    volumes:
+      - ./serverInfo.json:/app/Frontend/src/data/serverInfo.json
+    environment:
+      - PORT=3020

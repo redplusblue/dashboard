@@ -1,0 +1,5 @@
+{
+  "watch": ["/app/Frontend/src/data/serverInfo.json", "server.js"],
+  "ext": "json,js",
+  "exec": "sh -c 'cd Frontend && npm run build && cd .. && node server.js'"
+}

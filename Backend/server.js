@@ -1,7 +1,8 @@
 const express = require("express");
 const si = require("systeminformation");
 const app = express();
-const port = 1234;
+const portEnv = process.env.PORT;
+const port = portEnv ? parseInt(portEnv) : 1234;
 
 // Check server status script
 const { checkServerStatus } = require("./serverStatus");

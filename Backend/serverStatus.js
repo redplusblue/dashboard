@@ -8,7 +8,7 @@ const bypassSSLFor = [];
 async function checkServerStatus() {
   try {
     let serverInfo = await fs.readFile(
-      "/path/to/src/data/serverInfo.json",
+      "/app/Frontend/src/data/serverInfo.json",
       "utf8"
     );
     serverInfo = JSON.parse(serverInfo);
